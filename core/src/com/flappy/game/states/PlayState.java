@@ -60,10 +60,11 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bird.update(dt);
-        if(bird.getPosition().y < ground.getHeight() + GROUND_OFFSET){
+        if(bird.getPosition().y < ground.getHeight() + GROUND_OFFSET ||
+                bird.getPosition().y > cam.viewportHeight- bird.getBirdHeight()){
+            System.out.println("cam.viewportwidth: " + cam.viewportHeight + " " + " bird.getBirdHeight: " + bird.getBirdHeight() + " birdposition: " + bird.getPosition());
             crash.play();
             Gdx.input.vibrate(45);
-            //cam.setToOrtho(false, Gdx.graphics.getWidth() , Gdx.graphics.getHeight());
             gsm.set(new EndState(gsm, countPoints()));
 
         }
@@ -99,13 +100,13 @@ public class PlayState extends State {
                 cam.position.x - cam.viewportWidth/2,
                 0,
                 cam.viewportWidth, cam.viewportHeight);
-        sb.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
         for(Tube tube : tubes){
             sb.draw(tube.getTop(), tube.getPosTopTube().x, tube.getPosTopTube().y);
             sb.draw(tube.getBot(), tube.getPosBotTube().x, tube.getPosBotTube().y);
         }
+        sb.draw(bird.getTexture(), bird.getPosition().x, bird.getPosition().y);
         font.draw(sb, "Score: " + countPoints(),
                 cam.position.x -100, cam.position.y + cam.viewportHeight/2 -10);
         sb.end();

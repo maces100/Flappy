@@ -13,7 +13,7 @@ import com.flappy.game.Flappy;
  */
 public class EndState extends State {
     private Texture background;
-    private Texture buttonEnde, buttonAgain;
+    private Texture buttonMenu, buttonAgain;
     private int score, highscore;
     private BitmapFont fontOver, fontScore;
     private float timeSinceEndScreen;
@@ -31,8 +31,8 @@ public class EndState extends State {
         fontScore.setColor(Color.LIGHT_GRAY);
         cam.setToOrtho(false, Flappy.WIDTH/2, Flappy.HEIGHT/2);
         background = new Texture("bg_end_contrast.png");
-        buttonEnde = new Texture("buttons/b_quit_c.png");
-        buttonAgain = new Texture("buttons/b_restart_c.png");
+        buttonMenu = new Texture("buttons/b_menu.png");
+        buttonAgain = new Texture("buttons/b_restart.png");
         timeSinceEndScreen = 0f;
         allowClicking = false;
         Gdx.input.setInputProcessor(this);
@@ -41,7 +41,7 @@ public class EndState extends State {
     @Override
     public void handleInput() {
         if(!allowClicking) {
-            if (timeSinceEndScreen > 1) allowClicking = true;
+            if (timeSinceEndScreen > 0.5f) allowClicking = true;
         }
     }
 
@@ -54,7 +54,7 @@ public class EndState extends State {
                     screenX <= (cam.viewportWidth/9 + cam.viewportWidth/3) &&
                     screenY <= cam.viewportHeight - cam.viewportHeight/7 &&
                     screenY >= cam.viewportHeight - cam.viewportHeight/7 - cam.viewportHeight/10){
-                Gdx.app.exit();
+                gsm.set(new MenuState(gsm));
             }
             if(screenX >= cam.viewportWidth/9*5 &&
                     screenX <= (cam.viewportWidth/9*5 + cam.viewportWidth/3) &&
@@ -85,7 +85,7 @@ public class EndState extends State {
                 cam.position.x - cam.viewportWidth/2,
                 0,
                 cam.viewportWidth, cam.viewportHeight);
-        sb.draw(buttonEnde,
+        sb.draw(buttonMenu,
                 (cam.viewportWidth/9),
                 cam.viewportHeight/7,
                 cam.viewportWidth/3, cam.viewportHeight/10);
@@ -104,7 +104,7 @@ public class EndState extends State {
     public void dispose() {
         background.dispose();
         buttonAgain.dispose();
-        buttonEnde.dispose();
+        buttonMenu.dispose();
         fontScore.dispose();
         fontOver.dispose();
     }

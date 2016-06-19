@@ -19,12 +19,14 @@ public class Bird {
     private Animation birdAnimation;
     private Texture birdTexture;
     private Sound flap;
+    private int birdHeight;
 
     public Bird(int x, int y){
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         birdTexture = new Texture("dogeanim.png");
         birdAnimation = new Animation(birdTexture, 2, 0.5f);
+        birdHeight = birdTexture.getHeight();
         bounds = new Rectangle(x,y, birdTexture.getWidth()/2, birdTexture.getHeight());
         flap = Gdx.audio.newSound(Gdx.files.internal("wings_small.ogg"));
     }
@@ -54,8 +56,13 @@ public class Bird {
         return birdAnimation.getFrame();
     }
 
+    public int getBirdHeight() {
+        return birdHeight;
+    }
+
     public void jump(){
         Gdx.input.vibrate(17);
+
         flap.play(1f);
         velocity.y = 350;
     }

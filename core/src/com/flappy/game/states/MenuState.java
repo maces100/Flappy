@@ -21,8 +21,8 @@ public class MenuState extends State{
         background = new Texture("bg2.png");
         fontFlappy = new BitmapFont(Gdx.files.internal("font.fnt"));
         fontFlappy.setColor(Color.GREEN);
-        buttonStart = new Texture("buttons/b_start_c.png");
-        buttonEnde = new Texture("buttons/b_quit_c.png");
+        buttonStart = new Texture("buttons/b_start.png");
+        buttonEnde = new Texture("buttons/b_quit.png");
         Gdx.input.setInputProcessor(this);
     }
 
@@ -44,11 +44,11 @@ public class MenuState extends State{
                 cam.position.x - cam.viewportWidth/2,
                 0,
                 cam.viewportWidth, cam.viewportHeight);
-        sb.draw(buttonStart,
+        sb.draw(buttonEnde,
                 (cam.viewportWidth/9),
                 cam.viewportHeight/7,
                 cam.viewportWidth/3, cam.viewportHeight/10);
-        sb.draw(buttonEnde,
+        sb.draw(buttonStart,
                 (cam.viewportWidth/9*5),
                 cam.viewportHeight/7,
                 cam.viewportWidth/3, cam.viewportHeight/10);
@@ -72,16 +72,16 @@ public class MenuState extends State{
                 screenX <= (cam.viewportWidth/9 + cam.viewportWidth/3) &&
                 screenY <= cam.viewportHeight - cam.viewportHeight/7 &&
                 screenY >= cam.viewportHeight - cam.viewportHeight/7 - cam.viewportHeight/10){
-            Gdx.input.vibrate(20);
-            Gdx.input.setInputProcessor(null);
-            gsm.set(new PlayState(gsm));
+            Gdx.app.exit();
 
         }
         if(screenX >= cam.viewportWidth/9*5 &&
                 screenX <= (cam.viewportWidth/9*5 + cam.viewportWidth/3) &&
                 screenY <= cam.viewportHeight - cam.viewportHeight/7 &&
                 screenY >= cam.viewportHeight - cam.viewportHeight/7 - cam.viewportHeight/10) {
-            Gdx.app.exit();
+            Gdx.input.vibrate(20);
+            Gdx.input.setInputProcessor(null);
+            gsm.set(new PlayState(gsm));
         }
 
 

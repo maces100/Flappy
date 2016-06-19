@@ -9,9 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.flappy.game.states.GameStateManager;
 import com.flappy.game.states.MenuState;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-
 public class Flappy extends ApplicationAdapter {
 	public static final int WIDTH = 480;
 	public static final int HEIGHT = 800;
@@ -25,7 +22,7 @@ public class Flappy extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-		music = Gdx.audio.newMusic(Gdx.files.internal("cabal.MP3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("Vicious.mp3"));
 		music.setLooping(true);
 		music.setVolume(0.3f);
 		music.play();
